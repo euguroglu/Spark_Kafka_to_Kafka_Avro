@@ -8,6 +8,7 @@ if __name__ == "__main__":
         .builder \
         .appName("Kafka stream") \
         .config("spark.streaming.stop.stopGracefullyOnShutdown", "true") \
+        .master("yarn") \
         .getOrCreate()
 
     schema = StructType([
@@ -77,7 +78,7 @@ if __name__ == "__main__":
         .option("kafka.bootstrap.servers", "localhost:9092") \
         .option("topic", "invoice-items") \
         .outputMode("append") \
-        .option("checkpointLocation", "chk-point-dir") \
+        .option("checkpointLocation", "Avro/chk-point-dir") \
         .start()
 
     invoice_writer_query.awaitTermination()
